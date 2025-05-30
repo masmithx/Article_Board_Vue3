@@ -1,1 +1,1 @@
-# Article_Board_Vue3
+# Article_Board (Vue 3 + TypeScript + Vite)
