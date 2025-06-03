@@ -6,7 +6,9 @@
       <div class="d-flex justify-content-between align-items-start w-100 mb-2">
         <div></div>
         <div class="d-flex gap-2">
-          <button class="btn btn-icon"><i class="bi bi-bookmark"></i></button>
+          <button class="btn btn-icon" :class="{ bookmarked }" @click="$emit('toggle-bookmark')">
+            <i :class="bookmarked ? 'bi bi-bookmark-fill' : 'bi bi-bookmark'" />
+          </button>
           <button class="btn btn-icon"><i class="bi bi-three-dots-vertical"></i></button>
         </div>
       </div>
@@ -35,6 +37,7 @@ const props = defineProps({
   category: { type: String, default: ArticleCategory.WORKPLACE },
   title: { type: String, required: true },
   bgImage: { type: String, default: '' },
+  bookmarked: { type: Boolean, default: false },
 })
 
 const resolvedBg = computed(() => {
@@ -86,7 +89,13 @@ const resolvedBg = computed(() => {
   align-items: center;
   justify-content: center;
   color: #C9E6FF;
-  transition: background 0.2s;
+  transition: background 0.2s, color 0.2s;
+}
+.btn-icon.bookmarked {
+  color: #0E4C87;
+}
+.btn-icon.bookmarked i {
+  color: #67DBB1;
 }
 .btn-icon:hover {
   background: #C9E6FF;

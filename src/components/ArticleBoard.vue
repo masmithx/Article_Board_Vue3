@@ -46,6 +46,8 @@
             :category="filteredArticles[idx-1].category"
             :title="filteredArticles[idx-1].title"
             :bgImage="filteredArticles[idx-1].bgImage"
+            :bookmarked="filteredArticles[idx-1].bookmarked"
+            @toggle-bookmark="toggleBookmark(idx-1)"
           />
         </div>
         <div v-else class="col-12 col-md-6 col-lg-4" :key="'placeholder-' + idx" style="visibility: hidden; height: 0;"></div>
@@ -66,10 +68,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, reactive } from 'vue'
 import ArticleCard from './ArticleCard.vue'
 import { ArticleCategory } from '../const/ArticleCategory'
-import { articles } from '../const/articles'
+import { articles as initialArticles } from '../const/articles'
 import type { Article } from '../const/articles'
 
 const categories = [
@@ -85,10 +87,16 @@ const categories = [
 
 const selectedCategory = ref(ArticleCategory.ALL)
 
+const articles = reactive(initialArticles.map(article => ({ ...article })))
+
 const filteredArticles = computed(() => {
   if (selectedCategory.value === ArticleCategory.ALL) return articles
   return articles.filter((article: Article) => article.category === selectedCategory.value)
 })
+
+function toggleBookmark(idx: number) {
+  filteredArticles.value[idx].bookmarked = !filteredArticles.value[idx].bookmarked
+}
 </script>
 
 <style>
