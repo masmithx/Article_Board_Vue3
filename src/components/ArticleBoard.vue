@@ -40,24 +40,12 @@
     </div>
     <!-- Article Cards Grid -->
     <div class="row g-4 mb-4">
-      <div class="col-12 col-md-6 col-lg-4" v-for="n in 6" :key="n">
-        <div class="card article-card h-100 position-relative">
-          <div class="article-card-img bg-secondary" style="height: 160px; background: #0e4c87; opacity: 0.7;"></div>
-          <div class="card-body text-white position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-between p-3" style="background: rgba(14,76,135,0.3);">
-            <div>
-              <div class="d-flex align-items-center mb-2">
-                <i class="bi bi-lightbulb me-2"></i>
-                <span class="small">Workplace • Resources</span>
-              </div>
-              <div class="fw-semibold fs-6 mb-1">Article Title Placeholder</div>
-              <div class="small">Short description or subtitle goes here.</div>
-            </div>
-            <div class="d-flex justify-content-between align-items-center mt-3">
-              <button class="btn btn-light btn-sm rounded-circle p-2"><i class="bi bi-bookmark"></i></button>
-              <button class="btn btn-light btn-sm rounded-circle p-2"><i class="bi bi-three-dots-vertical"></i></button>
-            </div>
-          </div>
-        </div>
+      <div class="col-12 col-md-6 col-lg-4" v-for="(article, idx) in articles" :key="idx">
+        <ArticleCard
+          :category="article.category"
+          :title="article.title"
+          :bgImage="article.bgImage"
+        />
       </div>
     </div>
     <!-- Show More Button -->
@@ -71,9 +59,43 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import ArticleCard from './ArticleCard.vue'
 
 const categories = ['ALL', 'Acquisition', 'Communication', 'Engineering', 'Education', 'Productivity', 'Training', 'Workplace']
 const selectedCategory = ref('ALL')
+
+const articles = [
+  {
+    category: 'Workplace',
+    title: 'Ignition Podcast: Innovation, Agility, Talent, Workplace, Culture, and more',
+    bgImage: '1.png',
+  },
+  {
+    category: 'Training',
+    title: 'Threat Briefing',
+    bgImage: '2.png',
+  },
+  {
+    category: 'Productivity',
+    title: 'SSC Telework Portal',
+    bgImage: '3.png',
+  },
+  {
+    category: 'Education',
+    title: 'AIR FORCE Virtual Education',
+    bgImage: '4.png',
+  },
+  {
+    category: 'Education',
+    title: 'Guide to DigitalU',    
+    bgImage: '5.png',
+  },
+  {
+    category: 'Workplace',
+    title: 'How Build a Collaborative Team Environment',    
+    bgImage: '6.png',
+  },
+]
 </script>
 
 <style>
