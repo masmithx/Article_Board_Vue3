@@ -1,0 +1,68 @@
+.article-board {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.article-board h1 {
+  font-size: 2rem;
+  color: #0E4C87;
+}
+
+.article-board .text-muted {
+  font-size: 1rem;
+  color: #454B4F;
+}
+
+.article-board .btn-outline-primary {
+  border-radius: 20px;
+  border-color: #454B4F;
+  color: #454B4F;
+}
+
+.article-board .btn-outline-primary:hover {
+  background-color: #f8f9fa;
+  border-color: #dee2e6;
+  color: #6c757d;
+}
+
+.article-board .btn-outline-primary.active {
+  background-color: #C9E6FF;
+  color: #00263A;
+  border-color: #C9E6FF;
+}
+
+.article-board .action-buttons .btn {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+.article-board .action-buttons .btn:hover {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.article-board .action-buttons .bi {
+  font-size: 1.1rem;
+  color: #6c757d;
+}
+
+/* Show More Button Styles */
+.show-more-btn {
+  background: none;
+  border: none;
+  outline: none;
+  color: #0E4C87;
+  font-weight: 500;
+  font-size: 1.1rem;
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+
+.show-more-btn:hover {
+  background: #f0f6fa;
+} 
