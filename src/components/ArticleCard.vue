@@ -23,6 +23,7 @@
 
 <script setup lang="ts">
 import { defineProps, computed } from 'vue'
+import { ArticleCategory } from '../const/ArticleCategory'
 import defaultBg from '../assets/card_img/1.png'
 
 const imageMap = Object.fromEntries(
@@ -31,7 +32,7 @@ const imageMap = Object.fromEntries(
 )
 
 const props = defineProps({
-  category: { type: String, default: 'Workplace' },
+  category: { type: String, default: ArticleCategory.WORKPLACE },
   title: { type: String, required: true },
   bgImage: { type: String, default: '' },
 })
@@ -46,7 +47,7 @@ const resolvedBg = computed(() => {
 <style scoped>
 .article-card-custom {
   height: 200px;
-  min-width: 260px;
+  width: 100%;
   background: #00263A;
   box-shadow: 0 2px 12px rgba(0,0,0,0.08);
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="article-board p-4">
+  <div class="article-board p-4" style="min-height: 900px;">
     <!-- Header Section -->
     <div class="header mb-4">
       <div class="d-flex justify-content-between align-items-start mb-4">
@@ -39,17 +39,25 @@
       </div>
     </div>
     <!-- Article Cards Grid -->
-    <div class="row g-4 mb-4">
-      <div class="col-12 col-md-6 col-lg-4" v-for="(article, idx) in articles" :key="idx">
-        <ArticleCard
-          :category="article.category"
-          :title="article.title"
-          :bgImage="article.bgImage"
-        />
+    <div class="row g-4 mb-4 article-grid-area" style="min-height: 440px; position: relative;">
+      <template v-if="filteredArticles.length > 0" v-for="idx in 6">
+        <div v-if="filteredArticles[idx-1]" class="col-12 col-md-6 col-lg-4" :key="'card-' + idx">
+          <ArticleCard
+            :category="filteredArticles[idx-1].category"
+            :title="filteredArticles[idx-1].title"
+            :bgImage="filteredArticles[idx-1].bgImage"
+          />
+        </div>
+        <div v-else class="col-12 col-md-6 col-lg-4" :key="'placeholder-' + idx" style="visibility: hidden; height: 0;"></div>
+      </template>
+      <div v-if="filteredArticles.length === 0" class="no-match-resources d-flex flex-column align-items-center justify-content-center w-100 h-100 position-absolute top-0 start-0" style="min-height: 440px;">
+        <i class="bi bi-emoji-frown" style="font-size: 2.5rem; color: #C9E6FF;"></i>
+        <div class="fw-semibold fs-4 mt-3 mb-1" style="color: #0E4C87;">No Match Resources</div>
+        <div class="text-muted">Try a different category or add new resources.</div>
       </div>
     </div>
     <!-- Show More Button -->
-    <div class="d-flex justify-content-center mb-4">
+    <div v-if="filteredArticles.length > 0" class="d-flex justify-content-center mb-4">
       <button class="show-more-btn d-flex align-items-center">
         <i class="bi bi-arrow-down-circle me-2"></i> Show More
       </button>
@@ -58,44 +66,29 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import ArticleCard from './ArticleCard.vue'
+import { ArticleCategory } from '../const/ArticleCategory'
+import { articles } from '../const/articles'
+import type { Article } from '../const/articles'
 
-const categories = ['ALL', 'Acquisition', 'Communication', 'Engineering', 'Education', 'Productivity', 'Training', 'Workplace']
-const selectedCategory = ref('ALL')
-
-const articles = [
-  {
-    category: 'Workplace',
-    title: 'Ignition Podcast: Innovation, Agility, Talent, Workplace, Culture, and more',
-    bgImage: '1.png',
-  },
-  {
-    category: 'Training',
-    title: 'Threat Briefing',
-    bgImage: '2.png',
-  },
-  {
-    category: 'Productivity',
-    title: 'SSC Telework Portal',
-    bgImage: '3.png',
-  },
-  {
-    category: 'Education',
-    title: 'AIR FORCE Virtual Education',
-    bgImage: '4.png',
-  },
-  {
-    category: 'Education',
-    title: 'Guide to DigitalU',    
-    bgImage: '5.png',
-  },
-  {
-    category: 'Workplace',
-    title: 'How Build a Collaborative Team Environment',    
-    bgImage: '6.png',
-  },
+const categories = [
+  ArticleCategory.ALL,
+  ArticleCategory.ACQUISITION,
+  ArticleCategory.COMMUNICATION,
+  ArticleCategory.ENGINEERING,
+  ArticleCategory.EDUCATION,
+  ArticleCategory.PRODUCTIVITY,
+  ArticleCategory.TRAINING,
+  ArticleCategory.WORKPLACE,
 ]
+
+const selectedCategory = ref(ArticleCategory.ALL)
+
+const filteredArticles = computed(() => {
+  if (selectedCategory.value === ArticleCategory.ALL) return articles
+  return articles.filter((article: Article) => article.category === selectedCategory.value)
+})
 </script>
 
 <style>
